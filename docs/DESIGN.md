@@ -24,6 +24,11 @@
 | **Arena** (multiplayer) | host on `/host`, players on `/play?room=CODE` | WebSocket | Host starts a game of N rounds; round r uses level r's control set. Everyone hears the target from the host's speakers; phones may also play locally. |
 | **Demo preset** | host page button | — | 3 rounds × 30 s using levels 1, 2, 4. Fits in the 2-minute demo. |
 
+**Round length**: this is a sound-recreation game, not a quiz — players need time to A/B and tweak.
+Defaults: arena **6 rounds × 90 s** (host can pick 60/90/120 s and 3–10 rounds in the lobby); solo
+is **untimed** (the speed bonus counts down from a 120 s window, then is simply 0). Only the demo
+preset is 30 s, because the demo itself is 2 minutes.
+
 ## 3. Game loop (one round / one level)
 
 1. **Listen**: target patch plays the fixed phrase (host speakers; phones optionally). Player can
@@ -167,7 +172,7 @@ Client → Server
 |---|---|---|
 | `host:create` | — | host |
 | `join` | `room, name` | player (reconnect = same name + `playerId` from localStorage) |
-| `host:start` | `rounds, roundSecs` | host |
+| `host:start` | `rounds` (3–10, default 6), `roundSecs` (60/90/120, default 90) | host |
 | `patch` | `patch` | player, on change, throttled to 4/s (server keeps last-known for auto-submit) |
 | `submit` | `patch` | player (server ignores after `endsAt`; stamps `submittedAt`) |
 | `host:next` | — | host |
