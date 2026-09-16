@@ -97,6 +97,21 @@ export const LEVELS = [
   { n: 10, name: "Fat",          unlocks: ["detune"] },
 ];
 export const unlockedAt = (n) => LEVELS.slice(0, n).flatMap(l => l.unlocks);
+
+// One-sentence lesson per level, shown on the unlock card before the first round of that level
+// (Syntorial teaches with a video per control; we teach with one sentence + the control itself).
+export const LESSONS = {
+  1: "Every synth sound starts as a shape. Sine is smooth, square is hollow, saw is buzzy, triangle sits in between.",
+  2: "The filter is a brightness knob: close it and the sound gets darker and rounder.",
+  3: "Resonance makes the filter ring at its edge — a whistle or a bite right where it cuts.",
+  4: "Attack is how fast a note starts; release is how long it hangs on after you let go.",
+  5: "Decay and sustain shape the middle: a pluck falls away fast, a pad holds its level.",
+  6: "An LFO is a slow wave that wiggles something. On pitch, that wiggle is vibrato.",
+  7: "Point the LFO at the filter and the brightness pumps — that's the wobble.",
+  8: "Delay repeats the sound after a moment; more mix means louder echoes.",
+  9: "Reverb is the room around the sound: from a small booth to a cathedral.",
+  10: "Two oscillators slightly out of tune beat against each other — fat, wide, alive.",
+};
 ```
 
 **Target generation**: `randomTarget(level, rng)` = `DEFAULT_PATCH` with each *unlocked* param
@@ -121,6 +136,9 @@ speedBonus  = accuracy ≥ 80 ? round(300 × timeLeft / roundSeconds) : 0
 - Solo: pass at accuracy ≥ 75; stars ★ 75, ★★ 85, ★★★ 95. Campaign score = sum of roundPoints.
   Below 75 the screen says "Close! Listen again" (never "fail") — see VISUAL.md §6.
 - Arena: rank by roundPoints each round; game total = sum. Ties broken by earlier submit time.
+- **Learning is the product.** Before a level's first round the unlock card shows `LESSONS[n]` with the
+  new control live under it and the target already playing — read, touch, hear, then play. After the
+  round, the results screen names what you learned ("Your sound was brighter than the target").
 - Results screen shows, per unlocked control, target vs mine as two bars (and the real unit, e.g.
   "cutoff: 2.1 kHz vs 800 Hz"). This is the *learning* moment; don't skip it.
 
