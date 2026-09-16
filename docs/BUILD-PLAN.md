@@ -9,6 +9,7 @@ If behind schedule, cut from the top. Never cut anything below the line.
 
 1. Rotary knobs (sliders stay)
 2. Claude Sensei hint (rule-based hint stays)
+2b. Visual extras in VISUAL.md §4 order: living background → streaks → shake → FLIP → level-up slide → confetti
 3. Global all-time leaderboard file (per-game leaderboard stays)
 4. Levels 9–10 (reverb, detune) — levels 1–8 stay
 5. Hand-authored named targets (random targets stay)
@@ -17,6 +18,7 @@ If behind schedule, cut from the top. Never cut anything below the line.
 8. Reconnect handling (a refresh = rejoin with the same name is fine)
 ---------------------------------------------------------------- never cut below this line
 - Solo mode, levels 1–4, scoring, results bars
+- The six core visuals: theme + wave icons, timer ring, score count-up, accuracy bars, oscilloscope (VISUAL.md)
 - Arena: host QR, join, 1 round, results, leaderboard
 - Demo preset (3 rounds × 30 s)
 - iOS audio unlock, phone layout
@@ -26,10 +28,10 @@ If behind schedule, cut from the top. Never cut anything below the line.
 | Clock | Min | Who | What |
 |---|---|---|---|
 | 19:00 | 0 | Human | Open `claude` in this repo, paste the **kick-off prompt** below. Start `cloudflared` in a terminal tab now (allocation can take a minute). |
-| 19:00 | 0–13 | Claude | **Phase 1 — Solo core**: `shared/patch.js`, `shared/scoring.js`, `engine.js`, `controls.js`, `play.html`+`play.js` solo campaign (levels 1–10 in data, verified on 1–4), `app.css`, `server/index.js` static only, `npm start`. Verify in browser: tap-to-start, target plays, sliders, submit, results, next level. Commit. Say **"Phase 1 ready for phone test"**. |
-| 19:13 | 13–27 | Claude | **Phase 2 — Arena**: ws rooms, `host.html`+`host.js` (QR via `/qr`, lobby, countdown, submitted list, podium, leaderboard), `net.js`, arena mode in `play.js`, demo preset, auto-submit at timeout. Verify two tabs end-to-end. Commit. Say **"Phase 2 ready for phone test"**. |
+| 19:00 | 0–13 | Claude | **Phase 1 — Solo core**: `shared/patch.js`, `shared/scoring.js`, `engine.js`, `controls.js`, `play.html`+`play.js` solo campaign (levels 1–10 in data, verified on 1–4), `app.css` with the VISUAL.md theme (tokens, wave icons, button press, slider pill), `server/index.js` static only, `npm start`. Verify in browser: tap-to-start, target plays, sliders, submit, results, next level. Commit. Say **"Phase 1 ready for phone test"**. |
+| 19:13 | 13–27 | Claude | **Phase 2 — Arena**: ws rooms, `host.html`+`host.js` (QR via `/qr`, lobby, timer ring, join pops, submitted ticks, podium, leaderboard), `net.js`, arena mode in `play.js`, demo preset, auto-submit at timeout. Verify two tabs end-to-end. Commit. Say **"Phase 2 ready for phone test"**. |
 | 19:13 | 13–27 | Human | Phone test Phase 1 over the tunnel: audio unlock, slider feel, layout, results. Note issues; **don't interrupt Claude** — collect them for Phase 4. |
-| 19:27 | 27–37 | Claude | **Phase 3 — Delight**: announcer (`public/voice` + speech fallback), level names + unlock reveal animation, `shared/targets.js` named targets, results bars with real units, agentsynth.app link on the finish screen, rule-based hint. Commit. |
+| 19:27 | 27–37 | Claude | **Phase 3 — Delight (mostly visuals, VISUAL.md §4)**: oscilloscope, score count-up, bars sweep, FLIP leaderboard, confetti, level-up reveal, time's-up shake; announcer (`public/voice` + speech fallback); `shared/targets.js` named targets; agentsynth.app link on the finish screen; rule-based hint. Commit. |
 | 19:27 | 27–37 | Human | Phone test Phase 2 (join from phone, host on laptop). **Minute 30: check console usage** — if > $60, tell Claude "skip stretch". |
 | 19:37 | 37–45 | Claude | **Phase 4 — Fixes + stretch** (hard stop 19:45): the human's issue list first (paste it), then stretch in cut-list order bottom-up: Claude Sensei hint, global leaderboard, knobs. Commit. |
 | 19:45 | 45–55 | Human | Full rehearsal of `docs/DEMO.md` with the phone + laptop speakers. Restart server; confirm the tunnel URL still resolves. |
@@ -38,7 +40,7 @@ If behind schedule, cut from the top. Never cut anything below the line.
 ## 2. Kick-off prompt (paste verbatim at 19:00)
 
 ```
-Read CLAUDE.md, docs/DESIGN.md and docs/BUILD-PLAN.md once. Then build Phases 1, 2 and 3 in
+Read CLAUDE.md, docs/DESIGN.md, docs/VISUAL.md and docs/BUILD-PLAN.md once. Then build Phases 1, 2 and 3 in
 order without stopping between them. Every decision is already in DESIGN.md — don't ask me
 anything, decide and move on. After each phase: verify it yourself in the browser (open the
 pages, check the console, click through a full round), commit, and print one line
@@ -65,8 +67,10 @@ level 2 shows a cutoff slider. Levels 1–10 exist in data; 1–4 clicked throug
 appears on the host; "Demo" starts round 1 with a 30 s countdown on both; submitting on the phone
 tab shows a tick on host; at 0 s both show results and the leaderboard updates; 3 rounds → finished.
 
-**Phase 3 done** = host speaks "Welcome to Knob Wars" on room creation and "Time's up" at 0 s
-(mp3 or speech fallback); results show real units; finish screen has the AgentSynth link.
+**Phase 3 done** = host page shows a live oscilloscope while the target plays, the leaderboard
+animates on re-sort, confetti fires for the round winner, phone score counts up and bars sweep in;
+host speaks "Welcome to Knob Wars" on room creation and "Time's up" at 0 s (mp3 or speech
+fallback); results show real units; finish screen has the AgentSynth link.
 
 **Phase 4 done** = human's list fixed; whatever stretch landed is committed and listed.
 

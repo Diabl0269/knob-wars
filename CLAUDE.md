@@ -6,7 +6,11 @@ solo or against others, on laptop / iPad / phone. Built live in the event's one-
 
 This file is the brief for the build session. Read it, then `docs/BUILD-PLAN.md`, then go.
 `docs/DESIGN.md` has every decision already made (schema, scoring, levels, protocol,
-file layout) — **do not redesign, do not ask; build**.
+file layout) — **do not redesign, do not ask; build**. `docs/VISUAL.md` is the look and game-feel
+spec: **this is a game and it must look spectacular on the projector** — neon arcade theme, live
+oscilloscope, timer ring, count-ups, confetti, animated leaderboard — all CSS transforms/opacity
+and two small canvases, no libraries. Build the visuals in the phase they're assigned to; don't
+leave them for "later".
 
 ## Hard constraints
 

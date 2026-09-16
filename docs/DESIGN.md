@@ -152,7 +152,8 @@ LFO: OscillatorNode(sine, toHz(lfoRate))
   (level name, countdown ring, "Play target" button, list of who submitted). After the round:
   podium for the round, "Play winner's patch", Next. Lobby: "Start game" / "Demo (3 rounds × 30 s)".
 - **Landing (`/`)**: name field, "Solo", "Join room" (code), "Host". Name persisted in localStorage.
-- Theme: dark, one accent color, mono numerals for the timer. Keep CSS in one file, ≤ 250 lines.
+- Look & feel: see `docs/VISUAL.md` (neon arcade theme, four waveform accents, oscilloscope, juice
+  catalog with per-phase budget). CSS in one file, ≤ 300 lines; canvases in `public/js/fx.js`.
 - Responsive: `@media (min-width: 900px)` puts player controls in two columns; the host page
   assumes ≥ 1200 px but must not break at 800.
 
@@ -236,6 +237,7 @@ public/js/engine.js    Web Audio synth + phrase + announcer
 public/js/controls.js  slider/segmented rendering from unlocked list
 public/js/play.js      solo + arena player logic
 public/js/host.js      host logic
+public/js/fx.js        oscilloscope, confetti, count-up, FLIP (docs/VISUAL.md)
 public/js/net.js       ws client with auto-reconnect
 public/css/app.css
 public/voice/*.mp3
