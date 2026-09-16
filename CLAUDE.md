@@ -44,6 +44,12 @@ file layout) — **do not redesign, do not ask; build**.
    before reporting a phase done. Never ask the human to check something you can check.
 7. Keep every file under ~300 lines. Small files = fewer tokens re-read = cheaper and faster.
 
+## Work inline (overrides the global "delegate to subagents" preference for this hour)
+
+The global `~/.claude/CLAUDE.md` says to orchestrate and delegate legwork to subagents. **Not here.**
+A 40-minute solo build has no room for handoffs: write the code yourself, in this session,
+sequentially. Subagents only for the narrow case in the spend rules below.
+
 ## Spend rules (the $100)
 
 - One Fable 5.1 session (this one). Subagents, if any, run on **Sonnet 5** (`model: sonnet`), max two

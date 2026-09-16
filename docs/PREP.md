@@ -6,7 +6,8 @@ Tick in order. ~30 minutes total.
 - [x] `brew install cloudflared` — done 2026-09-16 (v2026.9.1).
 - [x] `npm install` — done 2026-09-16 (`ws`, `qrcode`, `@anthropic-ai/sdk` 0.126.0 all import).
 - [x] Tunnel tested 2026-09-16 from home Wi-Fi: allocated in 7 s, public fetch HTTP 200. Re-test at the venue (18:50) — different network.
-- [ ] `export ANTHROPIC_API_KEY=...` in `~/.zshenv` **from the console account that holds the event credits** — Claude Code and the game's `/api/hint` route both use it. Never commit it (`.gitignore` covers `.env`).
+- [ ] Put the event console account's key in the repo's **gitignored** `.env` as `ANTHROPIC_API_KEY=...` (the game's `/api/hint` route reads it via `node --env-file=.env`). **Do not export it globally** (`~/.zshenv`/`~/.zshrc`): Claude Code prefers that env var over its logged-in account, so every later session on this Mac would silently bill the console account.
+- [ ] Point Claude Code at the credited console account for the hour: switch the account in the desktop app settings (or, for a terminal run, `ANTHROPIC_API_KEY=$(grep ^ANTHROPIC_API_KEY= .env | cut -d= -f2-) claude` on that one launch). Verify with a trivial prompt that usage shows up on console.anthropic.com.
 - [ ] Claude Code desktop app: signed in to that account, this repo opened, permission mode set to auto (no prompts on the clock), effort **high** (not xhigh — speed beats depth for an hour).
 
 ## Voice clips (optional, 5 min)

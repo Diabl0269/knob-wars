@@ -31,7 +31,7 @@ If behind schedule, cut from the top. Never cut anything below the line.
 | 19:13 | 13–27 | Human | Phone test Phase 1 over the tunnel: audio unlock, slider feel, layout, results. Note issues; **don't interrupt Claude** — collect them for Phase 4. |
 | 19:27 | 27–37 | Claude | **Phase 3 — Delight**: announcer (`public/voice` + speech fallback), level names + unlock reveal animation, `shared/targets.js` named targets, results bars with real units, agentsynth.app link on the finish screen, rule-based hint. Commit. |
 | 19:27 | 27–37 | Human | Phone test Phase 2 (join from phone, host on laptop). **Minute 30: check console usage** — if > $60, tell Claude "skip stretch". |
-| 19:37 | 37–45 | Claude | **Phase 4 — Fixes + stretch**: the human's issue list first (paste it), then stretch in cut-list order bottom-up: Claude Sensei hint, global leaderboard, knobs. Commit. |
+| 19:37 | 37–45 | Claude | **Phase 4 — Fixes + stretch** (hard stop 19:45): the human's issue list first (paste it), then stretch in cut-list order bottom-up: Claude Sensei hint, global leaderboard, knobs. Commit. |
 | 19:45 | 45–55 | Human | Full rehearsal of `docs/DEMO.md` with the phone + laptop speakers. Restart server; confirm the tunnel URL still resolves. |
 | 19:55 | 55–60 | Both | **Freeze.** No more code. `git commit`. Open `/host`, fullscreen, room created, QR on screen, volume up. |
 
@@ -51,8 +51,8 @@ no frameworks, no CDNs. Don't spawn Fable subagents; if you parallelize, use Son
 ```
 Phase 4. First fix these from my phone test, in this order: <paste list>. Verify each in the
 browser. Then, only if it's before 19:45, add stretch items in this order: Claude Sensei hint
-(DESIGN.md §10, ANTHROPIC_API_KEY is in the env), global top-20 leaderboard file, rotary knobs.
-Commit after each. Stop at 19:47 regardless and tell me exactly what's in and what's out.
+(DESIGN.md §10, ANTHROPIC_API_KEY is in .env, loaded by npm start), global top-20 leaderboard file, rotary knobs.
+Commit after each. Stop at 19:45 regardless and tell me exactly what's in and what's out.
 ```
 
 ## 4. Phase details (what "done" means)

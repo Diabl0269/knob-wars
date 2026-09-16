@@ -42,7 +42,7 @@ keys) for free play.
 ```js
 // shared/patch.js
 export const DEFAULT_PATCH = {
-  wave: "saw",      // "sine" | "triangle" | "saw" | "square"   (categorical)
+  wave: "saw",      // "sine" | "triangle" | "saw" | "square"   (categorical; "saw" → Web Audio type "sawtooth")
   cutoff: 1.0,      // 0..1 → 80 Hz .. 12 kHz, log
   res: 0.0,         // 0..1 → Q 0.5 .. 18, linear
   attack: 0.05,     // 0..1 → 2 ms .. 2 s, log
@@ -167,9 +167,11 @@ Client → Server
 | `host:create` | — | host |
 | `join` | `room, name` | player (reconnect = same name + `playerId` from localStorage) |
 | `host:start` | `rounds, roundSecs` | host |
+| `patch` | `patch` | player, on change, throttled to 4/s (server keeps last-known for auto-submit) |
 | `submit` | `patch` | player (server ignores after `endsAt`; stamps `submittedAt`) |
 | `host:next` | — | host |
-| `hint` | `patch` | player (stretch; server holds the target) |
+
+The Sensei hint (stretch) is **HTTP** (`POST /api/hint`, §10), not a ws message — one transport decision, already made.
 
 Server → Client
 
@@ -190,25 +192,27 @@ Room codes: 4 uppercase letters, no vowels (avoids words). Rooms expire 30 min a
 
 ## 10. Sensei hint (stretch, `/api/hint`)
 
-`POST /api/hint { room, playerId }` → server looks up target + player's last patch, calls Claude:
+`POST /api/hint { room, playerId }` → server looks up target + player's last `patch`, calls Claude.
+Thinking is always on for `claude-fable-5-1` and its tokens count against `max_tokens`, so the cap must
+leave room for it (1024 with `effort: "low"` is plenty; 120 would truncate before any text):
 
 ```js
 import Anthropic from "@anthropic-ai/sdk";
 const client = new Anthropic();               // ANTHROPIC_API_KEY from env
 const r = await client.beta.messages.create({
   model: "claude-fable-5-1",
-  max_tokens: 120,
+  max_tokens: 1024,
   output_config: { effort: "low" },
   betas: ["server-side-fallback-2026-06-01"],
   fallbacks: [{ model: "claude-opus-4-8" }],
   system: "You are a synth teacher. Compare the player's patch to the target. Reply with ONE sentence of musical, ear-based advice (brighter/darker, snappier/slower, more wobble...). Never state numbers or parameter values. Only mention controls in the unlocked list.",
   messages: [{ role: "user", content: JSON.stringify({ unlocked, target, mine }) }],
 });
-if (r.stop_reason === "refusal") return "Trust your ears.";
-const text = r.content.find(b => b.type === "text")?.text ?? "Trust your ears.";
+if (r.stop_reason === "refusal" || r.stop_reason === "max_tokens") return ruleBasedHint(...);
+const text = r.content.find(b => b.type === "text")?.text ?? ruleBasedHint(...);
 ```
 
-Costs ≈ $0.01 per hint. One hint per round per player, costs 100 points (so it's a choice).
+Costs ≈ $0.02 per hint. Key comes from `.env` via `node --env-file=.env` (see PREP.md), never from a global export. One hint per round per player, costs 100 points (so it's a choice).
 If `ANTHROPIC_API_KEY` is unset the route returns a canned rule-based hint (largest-error control →
 "brighter/darker" etc.) — build the rule-based one first; it is the fallback either way.
 
