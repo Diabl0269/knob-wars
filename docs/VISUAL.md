@@ -80,3 +80,32 @@ screen; synchronized timers and instant "X submitted" feedback are what keep a r
 "Juice" (Jonasson & Purho) is bountiful feedback for small inputs: tweening, scale/squash, screen
 shake (small and dampened), particles and sound at every meaningful moment — it's mechanically
 superfluous but it's what makes the same game feel alive.
+
+## 6. All ages (Clash Royale rule: a kid and an adult must both want to play)
+
+What Supercell does that we can copy for free: bright saturated colours with strong contrast, chunky
+rounded shapes with distinctive silhouettes, one colour reserved for *the* action button, characters
+with no detail on calm backgrounds, and progression you can read without reading. Concrete rules:
+
+- **No jargon on screen before it's unlocked.** Level names and control labels are plain words:
+  "Shape", "Brightness", "Bite", "Pluck or Pad", "Wobble", "Echo", "Space", "Fat". The technical
+  name appears small underneath ("cutoff", "Q") so adults learn the real terms. Tooltips: none.
+- **Understandable without reading**: the loop is three icons on the landing card — 👂 Listen →
+  🎛️ Match → 🚀 Submit — and the first level is a 4-way picture choice (the wave icons) that a
+  seven-year-old can win.
+- **One action colour.** Submit / Start / Next are always the same warm yellow-orange (`#ffb02e`);
+  nothing else is that colour. Secondary buttons are outlined.
+- **Chunky**: 16 px corner radius on cards, 999 px on buttons, 56 px minimum touch height, 4 px
+  bottom "edge" on primary buttons (`box-shadow: 0 4px 0 #b8760f`) that disappears on press — the
+  classic pressable-toy look.
+- **Characters**: each player picks a synth-creature avatar (🎛️ 🎚️ 🎹 🔊 🎧 🌊 ⚡ 🪩 🐙 🦄 🤖 👾) at join;
+  it appears on the host leaderboard at 2rem and reacts: bounce on submit, shake on 0 points,
+  crown 👑 on the leader. Zero art cost, instant personality.
+- **Rewards you can see**: stars ★★★ per solo level, trophies 🏆 for arena wins, a level-unlock
+  card that flips open like a chest ("NEW: Brightness"), and the score count-up with the flying
+  "+300 SPEED". Progress bar of levels 1–10 on the solo screen; earned stars stay lit.
+- **Never shame**: below 75% says "Close! Listen again" with a replay button, never "FAIL"; the
+  accuracy bars show *how* close, which is the lesson. Adults get the same screen plus the real units.
+- **Short sessions**: a solo level is ~1 minute, an arena game is 6–9 minutes, and the demo is 2.
+- **Safe for a room with kids**: no chat, no free-text beyond a 12-character name, avatars from a
+  fixed set; the host can kick a name from the lobby.

@@ -10,7 +10,8 @@ file layout) — **do not redesign, do not ask; build**. `docs/VISUAL.md` is the
 spec: **this is a game and it must look spectacular on the projector** — neon arcade theme, live
 oscilloscope, timer ring, count-ups, confetti, animated leaderboard — all CSS transforms/opacity
 and two small canvases, no libraries. Build the visuals in the phase they're assigned to; don't
-leave them for "later".
+leave them for "later". It must appeal to kids and adults alike (VISUAL.md §6): plain-word
+labels, one action colour, chunky pressable buttons, avatars, stars/trophies, never "fail".
 
 ## Hard constraints
 

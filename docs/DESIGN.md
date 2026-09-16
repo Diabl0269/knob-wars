@@ -72,7 +72,7 @@ Log mapping: `hz = lo * (hi/lo) ** v`. Keep the mapping functions (`toHz`, `toSe
 
 | Lvl | Name | Unlocks (cumulative) | Why this order |
 |---|---|---|---|
-| 1 | Shapes | `wave` | Pure timbre recognition; a 4-way choice anyone can win. |
+| 1 | Shape | `wave` | Pure timbre recognition; a 4-way choice anyone can win. |
 | 2 | Brightness | `cutoff` | The single most audible continuous control. |
 | 3 | Bite | `res` | Hear resonance ring at the cutoff. |
 | 4 | Pluck or Pad | `attack`, `release` | Fast vs slow onset/tail — obvious on the held note. |
@@ -85,7 +85,7 @@ Log mapping: `hz = lo * (hi/lo) ** v`. Keep the mapping functions (`toHz`, `toSe
 
 ```js
 export const LEVELS = [
-  { n: 1, name: "Shapes",        unlocks: ["wave"] },
+  { n: 1, name: "Shape",         unlocks: ["wave"] },
   { n: 2, name: "Brightness",    unlocks: ["cutoff"] },
   { n: 3, name: "Bite",          unlocks: ["res"] },
   { n: 4, name: "Pluck or Pad",  unlocks: ["attack", "release"] },
@@ -119,6 +119,7 @@ speedBonus  = accuracy ≥ 80 ? round(300 × timeLeft / roundSeconds) : 0
 ```
 
 - Solo: pass at accuracy ≥ 75; stars ★ 75, ★★ 85, ★★★ 95. Campaign score = sum of roundPoints.
+  Below 75 the screen says "Close! Listen again" (never "fail") — see VISUAL.md §6.
 - Arena: rank by roundPoints each round; game total = sum. Ties broken by earlier submit time.
 - Results screen shows, per unlocked control, target vs mine as two bars (and the real unit, e.g.
   "cutoff: 2.1 kHz vs 800 Hz"). This is the *learning* moment; don't skip it.
@@ -171,7 +172,7 @@ Client → Server
 | `t` | fields | who |
 |---|---|---|
 | `host:create` | — | host |
-| `join` | `room, name` | player (reconnect = same name + `playerId` from localStorage) |
+| `join` | `room, name (≤12 chars), avatar (index into the fixed emoji set)` | player (reconnect = same name + `playerId` from localStorage) |
 | `host:start` | `rounds` (3–10, default 6), `roundSecs` (60/90/120, default 90) | host |
 | `patch` | `patch` | player, on change, throttled to 4/s (server keeps last-known for auto-submit) |
 | `submit` | `patch` | player (server ignores after `endsAt`; stamps `submittedAt`) |
