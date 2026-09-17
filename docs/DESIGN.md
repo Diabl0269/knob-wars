@@ -169,7 +169,7 @@ LFO: OscillatorNode(sine, toHz(lfoRate))
 
 - **Controls**: `<input type="range">` sliders, big (56 px touch height), one per unlocked param,
   label + unit readout. Wave = 4 segmented buttons. Sliders are the floor; rotary knobs are a
-  polish item only if Phase 4 has time (pointer-events drag, 40 lines).
+  polish item only if checkpoint D has time (pointer-events drag, 40 lines).
 - **Player page (`/play`)** — phone portrait, single column, no scrolling in a round:
   header (room, name, level name, timer) → "Hear target" / "Hear mine" buttons → controls →
   key strip → Submit. Results overlay: accuracy, bars, rank, Next.
