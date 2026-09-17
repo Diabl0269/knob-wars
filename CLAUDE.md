@@ -9,18 +9,22 @@ This file is the brief for the build session. Read it, then `docs/BUILD-PLAN.md`
 file layout) — **do not redesign, do not ask; build**. `docs/VISUAL.md` is the look and game-feel
 spec: **this is a game and it must look spectacular on the projector** — neon arcade theme, live
 oscilloscope, timer ring, count-ups, confetti, animated leaderboard — all CSS transforms/opacity
-and two small canvases, no libraries. Build the visuals in the phase they're assigned to; don't
+and two small canvases, no libraries. Build the visuals in the checkpoint they're assigned to; don't
 leave them for "later". It must appeal to kids and adults alike (VISUAL.md §6): plain-word
 labels, one action colour, chunky pressable buttons, avatars, stars/trophies, never "fail".
 
 ## Hard constraints
 
-- **60 minutes total, target 40 minutes of Claude work.** The human needs ~15 min to test on a
-  phone and rehearse the demo. Phase order and cut list in `docs/BUILD-PLAN.md` are binding.
+- **60 minutes total, ~35 minutes of Claude work, built by checkpoints** A (19:18) → B (19:32) →
+  C (19:45), each demoable on its own. Deadlines, cut list and bail-out rule in `docs/BUILD-PLAN.md`
+  are binding: miss a deadline → ship the smallest demoable version, don't push past it.
 - **$100 API credits for the whole hour.** Fable 5.1 is $10/M in, $50/M out, $0.25/M cache reads.
   Spend rules below.
-- **Demo is 2 minutes, in front of a room, audience joins from their phones via QR.** The host
-  laptop is the *only* audio source that matters; phones are controllers (with optional local sound).
+- **Demo is 2 minutes and scripted** (`docs/DEMO.md`): solo on the laptop first, then one arena round
+  with the phone. It never depends on the audience joining; the QR is the closer.
+- **Every device plays its own audio.** Players must compare the target with their own patch on their
+  own phone ("Hear target" / "Hear mine"), so the engine runs everywhere. The host page additionally
+  plays the target for the room. Local sound on by default after the unlock tap; mute toggle in the header.
 - **Responsive, touch-first.** Phone portrait is the primary layout for players; the host page is
   a landscape "big screen" for the projector.
 
@@ -43,10 +47,10 @@ labels, one action colour, chunky pressable buttons, avatars, stars/trophies, ne
    Waveform is the only categorical param. See `docs/DESIGN.md` § Patch schema.
 4. **Locked controls are pinned to defaults** in both target and player patch, so a level only
    scores the controls it has unlocked.
-5. **Commit at the end of every phase** (`git commit -am "phase N"`), so a broken phase can be reverted
-   instead of debugged on the clock.
+5. **Commit at the end of every checkpoint** (`git commit -am "checkpoint X"`), so a broken step can be
+   reverted instead of debugged on the clock.
 6. **Verify in the browser yourself** (preview tools: open the page, read console, click, screenshot)
-   before reporting a phase done. Never ask the human to check something you can check.
+   before reporting a checkpoint done. Never ask the human to check something you can check.
 7. Keep every file under ~300 lines. Small files = fewer tokens re-read = cheaper and faster.
 
 ## Work inline (overrides the global "delegate to subagents" preference for this hour)
@@ -66,8 +70,8 @@ sequentially. Subagents only for the narrow case in the spend rules below.
 ## Verification recipe
 
 - Laptop: `npm start`, open `/host` and `/play?room=XXXX` in two tabs, play a round end-to-end.
-- Phone: the human opens the tunnel URL from the QR on `/host`. Announce **"Phase N ready for phone
-  test"** the moment a phase is verified on laptop, then continue with the next phase without waiting.
+- Phone: the human opens the tunnel URL. Print **"Checkpoint X verified"** the moment it is verified on
+  the laptop, then continue with the next checkpoint without waiting.
 - Console must be clean (no uncaught errors) on both pages.
 
 ## What was prepared before the event vs built live (say this to judges)

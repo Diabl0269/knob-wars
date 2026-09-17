@@ -59,14 +59,14 @@ except the ring; honour `@media (prefers-reduced-motion: reduce)` by collapsing 
 - **Landing**: title in the four accents (one letter group per colour), pulsing "Tap to start"
   (also the audio unlock), name field, three big buttons.
 
-## 4. Where it lands in the timeline (and the visual cut list)
+## 4. Where it lands in the checkpoints (and the visual cut list)
 
-| Phase | Included | Minutes |
+| Checkpoint | Included | Minutes |
 |---|---|---|
-| 1 | Theme tokens, type, wave icons, button press (#1), slider pill (#2), phone layout | ~6 |
-| 2 | Timer ring (#3), join pops (#4), submit ticks (#5), host layout | ~7 |
-| 3 | Oscilloscope, count-up (#7), bars sweep (#8), FLIP leaderboard (#9), confetti (#10), level-up reveal (#11), time's-up shake (#6) | ~14 (this is Phase 3's main job) |
-| 4 | Living background, streaks (#12), medals polish | if time |
+| A | Theme tokens, type, wave icons, button press (#1), slider pill (#2), phone layout | ~6 |
+| B | Oscilloscope, timer ring (#3), count-up (#7), bars sweep (#8), level-up/lesson reveal (#11), confetti (#10), time's-up shake (#6) | ~12 (this is B's main job) |
+| C | Join pops (#4), submit ticks (#5), FLIP leaderboard (#9) or instant re-sort, host layout | ~6 |
+| D | Living background, streaks (#12), medals polish | if time |
 
 Visual cut order (cut from the top): living background → streaks → shake → FLIP (fall back to an
 instant re-sort with a fade) → level-up slide → confetti. **Never cut**: theme, wave icons, timer

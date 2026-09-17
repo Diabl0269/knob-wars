@@ -1,52 +1,65 @@
-# Knob Wars — 2-minute demo script
+# Knob Wars — 2-minute demo
 
-Setup before you're called: `/host` fullscreen on the projector, room created, QR visible, laptop
-audio to the room speakers (or the Bluetooth speaker), phone in hand joined as "Tal", volume up.
-Say the honesty line if asked (bottom).
+The demo is **scripted and self-contained**: it runs on the laptop (projector) with your phone in
+hand, and never depends on the audience joining. The QR goes up at the end as the closer;
+judges and the room play during judging (20:00–20:30), not during the two minutes.
+Pick the variant matching the checkpoint you reached. Say the honesty line if asked.
+
+## Variant C (arena landed) — 2:00
+
+Setup: laptop tab 1 = `/play` solo at level 1, tab 2 = `/host` with a room created; phone joined to
+the room as a player (and a friend pre-joined if one is next to you). Laptop audio to the room.
 
 | Time | Say | Do |
 |---|---|---|
-| 0:00 | "Everyone in this room has a synthesizer in their pocket. Scan this." | Point at the QR. Wait ~10 s while names pop onto the leaderboard. |
-| 0:15 | "Knob Wars: I play a sound, you rebuild it by ear on your phone. Closest ear wins. Every round unlocks more of the synth." | Tap **Demo** (3 rounds × 30 s). Announcer: "Round one. Listen closely." |
-| 0:25 | *(silence — let the target play twice)* "Round one is just the waveform. Four shapes. Pick the one you hear." | Tap **Play target** once more. Show your phone: tap a wave, Submit. |
-| 0:50 | "Time's up." | Announcer says it. Results: podium + leaderboard. Read the top name aloud. |
-| 1:00 | "Round two unlocks the filter. Now it's about brightness." | Round 2 starts; play target; show the cutoff slider on your phone; move it while a note holds. |
-| 1:25 | "Round three: envelope. Pluck or pad?" | Round 3; if the Sensei hint landed: tap **Hint** on your phone and read Claude's one-liner aloud. |
-| 1:45 | "Final leaderboard." | Announcer: "We have a winner!" Read the winner. |
-| 1:55 | "Solo mode has ten levels — filter, resonance, envelopes, LFOs, delay, reverb. All of this was built in the last hour with Fable 5.1. It links to AgentSynth, the real synth I'm building." | Show the finish screen with the link. Done. |
+| 0:00 | "Knob Wars teaches synthesis by ear, as a game. You hear a sound and rebuild it." | Tab 1. Tap Hear target — the oscilloscope moves. |
+| 0:15 | "Level one is just the shape." | Tap the saw icon, Hear mine, Submit → score counts up, ★★★, confetti. |
+| 0:35 | "Every level unlocks one more control and teaches it in one sentence." | Level-up card: read the lesson aloud. Cutoff slider appears; move it while a note holds. |
+| 0:55 | "Ten levels: filter, envelope, LFOs, delay, reverb. Solo, or against the room." | Switch to tab 2 (host). |
+| 1:05 | "Same game, multiplayer: everyone gets the same target, closest ear wins the round." | Start Quick game. Target plays on the room speakers. On your phone: tweak, Submit → tick on host. |
+| 1:35 | "Leaderboard." | Round ends (or tap End round). Podium, leaderboard re-sort, announcer. |
+| 1:45 | "Built in the last hour with Fable 5.1. It's live now — scan and play a round while you judge. It links to AgentSynth, the real synth I'm building." | Show QR fullscreen. Done. |
 
-Rules for the room: keep it moving — never wait for stragglers; the timer does the pacing.
-If the tunnel dies mid-demo: "Wi-Fi's out — solo mode works offline" and play a level on the phone
-held to the mic. Not great, still a demo.
+## Variant B (solo + visuals) — 2:00
+
+Same first 55 s, then: "Multiplayer is the next hour: rooms, live leaderboard." Continue solo:
+level 3 (resonance) or 4 (pluck vs pad) on the **phone**, held up, to show it's mobile. Close at
+1:45 with the QR to the solo game and the AgentSynth line.
+
+## Variant A (solo core only) — 1:30
+
+Play levels 1 → 2 → 3 on the laptop, narrating the lesson each time; close with the QR.
+Shorter is fine — a working game beats a padded demo.
+
+## Audio in the room
+
+Every device plays its own audio (that's how players compare target and their patch). For the
+demo the **laptop** is what the room hears, so run the solo part on the laptop tab, not the phone.
+Bring a Bluetooth speaker in case the projector has none.
 
 ## Announcer lines (ElevenLabs, generated before the event)
 
 | id | line |
 |---|---|
-| welcome | Welcome to Knob Wars. Scan the code, grab a synth, and get ready. |
+| welcome | Welcome to Knob Wars. Listen, match, and level up. |
 | round | New round. Listen closely. |
 | ten | Ten seconds. |
 | timeup | Time's up! Let's see the scores. |
-| levelup | Level up! New controls unlocked. |
+| levelup | Level up! New control unlocked. |
 | winner | We have a winner! |
 | highscore | New high score! |
 | gameover | Game over. Thanks for playing Knob Wars. |
 
-Generate: `ELEVENLABS_API_KEY=... ./scripts/gen-voice.sh` → `public/voice/<id>.mp3`. The script
-reads `ELEVENLABS_VOICE_ID` (default is a premade ElevenLabs voice id; pick your favourite from
-the ElevenLabs voice library and override). If no clips exist the game falls back to the browser's
-`speechSynthesis`, so this is nice-to-have, not blocking.
+Generate: `ELEVENLABS_API_KEY=... ./scripts/gen-voice.sh` → `public/voice/<id>.mp3`. Optional;
+missing clips fall back to the browser's `speechSynthesis`.
 
-Optional flourish: a 10-second "trailer" for the opening — not worth the time; the live room is
-the trailer.
+## Join-path fallbacks (for the judging period, not the demo)
 
-## Fallbacks for the join path, in order
-
-1. `cloudflared tunnel --url http://localhost:3000` (no account; started at 19:00, tested in PREP).
-2. Laptop and phones on the **iPhone hotspot**; join `http://<laptop-LAN-IP>:3000` (QR encodes that URL when `PUBLIC_URL` env var is set to it).
-3. Two browser windows on the laptop (host + one player) and Solo on the phone.
+1. `cloudflared tunnel --url http://localhost:3000` (tested 2026-09-16: 7 s).
+2. Laptop + phones on the iPhone hotspot: `http://<laptop-LAN-IP>:3000`.
+3. Nobody joins: fine — the demo never depended on it.
 
 ## Honesty line
 
 "Everything running on screen was written during the hour. What I prepared beforehand: the design
-doc and plan, installed dependencies, and the announcer voice clips."
+docs, installed dependencies, and the announcer voice clips."

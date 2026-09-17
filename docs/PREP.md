@@ -20,7 +20,8 @@ Tick in order. ~30 minutes total.
 
 ## Rehearsal (10 min)
 - [ ] Read `docs/DEMO.md` aloud once with a timer; it must fit in 2:00.
-- [ ] Copy the kick-off prompt from `docs/BUILD-PLAN.md` § 2 into a note so it's one paste at 19:00.
+- [ ] Copy the kick-off prompt from `docs/BUILD-PLAN.md` § 3 and the bail-out line from § 1 into a note so each is one paste.
+- [ ] Read the three demo variants in `docs/DEMO.md`; rehearse variant C with a timer (it must fit 2:00).
 
 ## At the venue (18:50)
 - [ ] Join the venue Wi-Fi; confirm `claude` responds; confirm `cloudflared` can allocate (else hotspot).

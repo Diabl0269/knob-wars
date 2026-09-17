@@ -10,11 +10,11 @@ OUT="$(cd "$(dirname "$0")/.." && pwd)/public/voice"
 mkdir -p "$OUT"
 
 lines=(
-  "welcome|Welcome to Knob Wars. Scan the code, grab a synth, and get ready."
+  "welcome|Welcome to Knob Wars. Listen, match, and level up."
   "round|New round. Listen closely."
   "ten|Ten seconds."
   "timeup|Time's up! Let's see the scores."
-  "levelup|Level up! New controls unlocked."
+  "levelup|Level up! New control unlocked."
   "winner|We have a winner!"
   "highscore|New high score!"
   "gameover|Game over. Thanks for playing Knob Wars."

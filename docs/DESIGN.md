@@ -10,8 +10,8 @@
 - **Genre**: ear-training game in the spirit of Syntorial (hear a hidden patch, recreate it on a
   built-in synth, lessons unlock controls one at a time) — but multiplayer, timed, with a live
   leaderboard and a big-screen "arena" view.
-- **Why judges should care**: audience participation in the demo (they *are* the demo), it sounds
-  good on the room speakers, the level ladder is a real pedagogy, and it was built in an hour.
+- **Why judges should care**: it teaches synthesis by ear with a real level ladder, it looks and
+  sounds like a game on the projector, the room can play it during judging, and it was built in an hour.
 - **Garnish**: "Sensei" hints from Claude Fable 5.1 in musical language ("your sound is brighter and
   snappier than the target — close the filter and lengthen the attack"). Stretch item; cut first.
 - **Cross-promo**: the end screen links to https://agentsynth.app ("want the real thing?").
@@ -22,17 +22,18 @@
 |---|---|---|---|
 | **Solo campaign** | `/play` (no room) | none | Levels 1→10, pass at ≥75% accuracy; stars at 75/85/95. Built first: it de-risks the engine and works offline. |
 | **Arena** (multiplayer) | host on `/host`, players on `/play?room=CODE` | WebSocket | Host starts a game of N rounds; round r uses level r's control set. Everyone hears the target from the host's speakers; phones may also play locally. |
-| **Demo preset** | host page button | — | 3 rounds × 30 s using levels 1, 2, 4. Fits in the 2-minute demo. |
+| **Quick game** | host page button | — | 3 rounds × 60 s using levels 1, 2, 4, plus an "End round now" host button (the scripted demo uses one round). |
 
 **Round length**: this is a sound-recreation game, not a quiz — players need time to A/B and tweak.
 Defaults: arena **6 rounds × 90 s** (host can pick 60/90/120 s and 3–10 rounds in the lobby); solo
 is **untimed** (the speed bonus counts down from a 120 s window, then is simply 0). Only the demo
-preset is 30 s, because the demo itself is 2 minutes.
+preset is 60 s; the scripted demo ends its single round early with the host's "End round now".
 
 ## 3. Game loop (one round / one level)
 
-1. **Listen**: target patch plays the fixed phrase (host speakers; phones optionally). Player can
-   replay the target any time ("Hear target") and their own ("Hear mine") — A/B is the whole skill.
+1. **Listen**: the target patch plays the fixed phrase **on the player's own device** (and on the host
+   page for the room). The player replays the target any time ("Hear target") and their own ("Hear
+   mine") — A/B on your own ears is the whole skill, so the engine runs on every device.
 2. **Tweak**: only this level's unlocked controls are visible; the rest are hidden (not greyed).
 3. **Submit** (or the timer expires → auto-submit current patch).
 4. **Score** (server in arena, client in solo), reveal target values next to player's, ranking.
@@ -161,7 +162,8 @@ LFO: OscillatorNode(sine, toHz(lfoRate))
   `Engine.noteOff()`. Build a fresh voice graph per note (simplest; no param glitches). Delay and
   reverb stay persistent per engine (shared sends) so tails continue after note-off.
 - Master limiter: `DynamicsCompressor` before destination (resonance + square can clip).
-- Phones: local audio on by default after the unlock tap; a mute toggle in the header.
+- Every device runs the engine. Local audio on by default after the unlock tap; mute toggle in the
+  header (for a quiet room, headphones recommended in the lobby text).
 
 ## 8. UI
 
@@ -195,6 +197,7 @@ Client → Server
 | `patch` | `patch` | player, on change, throttled to 4/s (server keeps last-known for auto-submit) |
 | `submit` | `patch` | player (server ignores after `endsAt`; stamps `submittedAt`) |
 | `host:next` | — | host |
+| `host:end` | — | host: end the current round now (auto-submits everyone) |
 
 The Sensei hint (stretch) is **HTTP** (`POST /api/hint`, §10), not a ws message — one transport decision, already made.
 
